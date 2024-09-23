@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/Navigation.tsx
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -7,7 +8,7 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { useAuth } from '../lib/authContext';
 import { Box, Menu, MenuItem, IconButton, Avatar } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+// import { AccountCircle } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
