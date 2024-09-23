@@ -6,8 +6,33 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { useAuth } from '../lib/authContext';
-import { Box,  Menu, MenuItem, IconButton } from '@mui/material';
+import { Box, Menu, MenuItem, IconButton, Avatar } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  background: 'linear-gradient(45deg, #8C1D40 30%, #C1A01E 90%)',
+  boxShadow: '0 3px 5px 2px rgba(140, 29, 64, .3)',
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  borderRadius: '20px',
+  padding: '6px 16px',
+  margin: '0 8px',
+  color: 'white',
+  fontWeight: 'bold',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+}));
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  color: 'white',
+  '&:hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+}));
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
@@ -22,35 +47,36 @@ const Navigation = () => {
   };
 
   return (
-    <AppBar position="static">
+    <StyledAppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
           SFUsed Books
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Link href="/" passHref>
-            <Button color="inherit">Home</Button>
+            <StyledButton>Home</StyledButton>
           </Link>
           {user ? (
             <>
               <Link href="/dashboard" passHref>
-                <Button color="inherit">Dashboard</Button>
+                <StyledButton>Dashboard</StyledButton>
               </Link>
-              <IconButton
+              <StyledIconButton
                 size="large"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
-                color="inherit"
               >
-                <AccountCircle />
-              </IconButton>
+                <Avatar sx={{ width: 32, height: 32, bgcolor: 'secondary.main' }}>
+                  {user.email?.[0].toUpperCase()}
+                </Avatar>
+              </StyledIconButton>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
+                  vertical: 'bottom',
                   horizontal: 'right',
                 }}
                 keepMounted
@@ -68,16 +94,18 @@ const Navigation = () => {
           ) : (
             <>
               <Link href="/login" passHref>
-                <Button color="inherit">Login</Button>
+                <StyledButton>Login</StyledButton>
               </Link>
               <Link href="/register" passHref>
-                <Button color="inherit">Register</Button>
+                <StyledButton variant="outlined" sx={{ borderColor: 'white', '&:hover': { borderColor: 'white' } }}>
+                  Register
+                </StyledButton>
               </Link>
             </>
           )}
         </Box>
       </Toolbar>
-    </AppBar>
+    </StyledAppBar>
   );
 };
 
