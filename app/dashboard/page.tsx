@@ -24,14 +24,6 @@ export default function Dashboard() {
   const { user } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/login');
-    } else {
-      fetchUserListings();
-    }
-  }, [user, router, fetchUserListings]);
-
   const fetchUserListings = useCallback(async () => {
     try {
       const { data, error } = await supabase
@@ -46,6 +38,16 @@ export default function Dashboard() {
       console.error('Error fetching user listings:', error);
     }
 }, [user]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    } else {
+      fetchUserListings();
+    }
+  }, [user, router, fetchUserListings]);
+
+
 
   const handleListingCreated = () => {
     setShowCreateForm(false);
