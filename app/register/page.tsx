@@ -7,6 +7,11 @@ import { useAuth } from '../../lib/authContext';
 import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash'; // Make sure to install lodash: npm install lodash
 
+export function getErrorMessage(error: unknown): string {
+    if (error instanceof Error) return error.message;
+    return String(error);
+  }
+
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,21 +21,20 @@ export default function Register() {
   const [success, setSuccess] = useState('');
   const { signUp } = useAuth();
   const router = useRouter();
-
   const debouncedSignUp = debounce(async (email, password, name, studentNumber) => {
     try {
       await signUp(email, password, name, studentNumber);
       setSuccess('Registration successful. Please check your email to confirm your account.');
       setTimeout(() => router.push('/login'), 5000);
     } catch (err) {
-      if (err.message.includes('Too many requests')) {
+      const errorMessage = getErrorMessage(err);
+      if (errorMessage.includes('Too many requests')) {
         setError('Too many signup attempts. Please try again later.');
       } else {
-        setError(err.message);
+        setError(errorMessage);
       }
     }
   }, 1000);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');

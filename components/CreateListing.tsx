@@ -4,9 +4,17 @@ import { TextField, Button, Box, Typography, Alert, MenuItem } from "@mui/materi
 import { useAuth } from '../lib/authContext';
 import { supabase } from '../lib/supabaseClient';
 
+
+
+export function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message;
+  return String(error);
+}
+
 interface CreateListingProps {
   onListingCreated: () => void;
 }
+
 
 const conditions = [
   "New",
@@ -63,7 +71,8 @@ const CreateListing: React.FC<CreateListingProps> = ({ onListingCreated }) => {
       setCourseNumber("");
       setDescription("");
     } catch (err) {
-      setError(err.message);
+      // setError(err.message);
+      setError(getErrorMessage(err));
     }
   };
 
