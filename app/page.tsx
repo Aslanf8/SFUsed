@@ -6,7 +6,7 @@ import { Container, Typography, TextField, Button, Grid, Card, CardContent, Card
 import SearchIcon from '@mui/icons-material/Search';
 import Navigation from '../components/Navigation';
 import { supabase } from '../lib/supabaseClient';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 interface Listing {
   id: number;

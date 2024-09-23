@@ -38,7 +38,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ onListingCreated }) => {
     }
 
     try {
-      const { data, error } = await supabase
+      const {  error } = await supabase
         .from('listings')
         .insert({
           user_id: user.id,

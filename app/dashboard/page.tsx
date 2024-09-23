@@ -1,7 +1,7 @@
 // app/dashboard/page.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Typography, Button, Grid, Card, CardContent, CardActions, Box, Chip, Dialog, DialogTitle, DialogContent } from '@mui/material';
 import Navigation from '../../components/Navigation';
 import CreateListing from '../../components/CreateListing';
@@ -30,9 +30,9 @@ export default function Dashboard() {
     } else {
       fetchUserListings();
     }
-  }, [user, router]);
+  }, [user, router, fetchUserListings]);
 
-  const fetchUserListings = async () => {
+  const fetchUserListings = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('listings')
@@ -45,7 +45,7 @@ export default function Dashboard() {
     } catch (error) {
       console.error('Error fetching user listings:', error);
     }
-  };
+}, [user]);
 
   const handleListingCreated = () => {
     setShowCreateForm(false);

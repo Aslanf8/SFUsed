@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { useAuth } from '../lib/authContext';
-import { Box, Avatar, Menu, MenuItem, IconButton } from '@mui/material';
+import { Box,  Menu, MenuItem, IconButton } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 
 const Navigation = () => {
