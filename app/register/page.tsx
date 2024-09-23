@@ -7,7 +7,9 @@ import { useAuth } from '../../lib/authContext';
 import { useRouter } from 'next/navigation';
 import { debounce } from 'lodash'; // Make sure to install lodash: npm install lodash
 
-export function getErrorMessage(error: unknown): string {
+// import { getErrorMessage } from '../../utils/errorHandler'; // Import the function
+
+function getErrorMessage(error: unknown): string {
     if (error instanceof Error) return error.message;
     return String(error);
   }
